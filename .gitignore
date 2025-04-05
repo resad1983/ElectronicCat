@@ -1,0 +1,11 @@
+# Windows thumbnail cache files
+Thumbs.db
+
+# Windows metadata files
+desktop.ini
+
+# VS Code configuration folder
+.vscode/
+
+# Optional: Log files
+*.log

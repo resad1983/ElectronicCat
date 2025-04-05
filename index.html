@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>電子貓養成</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="name-section">
+        <h2 id="cat-name-display">你的貓咪</h2>
+        <input type="text" id="cat-name-input" placeholder="輸入新名字">
+        <button id="change-name-button">更改名字</button>
+    </div>
+
+    <h1 id="stage-title">🐾 幼貓養成中</h1>
+
+    <div id="cat-container">
+        <img id="cat-image" src="images/stage0.png" alt="貓咪型態">
+    </div>
+
+    <div class="progress-section">
+        <div class="requirement-grid">
+            <div class="requirement-card">
+                <h3>🥫 餵食進度</h3>
+                <p><span id="feed-count">0</span>/<span id="feed-required">10</span> 次</p>
+            </div>
+            <div class="requirement-card">
+                <h3>🎮 遊戲進度</h3>
+                <p><span id="play-count">0</span>/<span id="play-required">5</span> 次</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button id="feed-button">餵食貓咪</button>
+        <button id="play-button">陪貓玩耍</button>
+    </div>
+
+    <!-- 新增重新養成按鈕 -->
+    <div class="restart-section">
+        <button id="restart-button" class="hidden">重新養成一隻新貓咪</button>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
