@@ -11,6 +11,7 @@ class CatLifecycle {
             stage: 0,
             feedCount: 0,
             playCount: 0,
+            nameChangeCount: 0, // 新增：改名次數計數
             variant: 1,
             unlocked: { stage1: new Set(), stage2: new Set() },
             lastFeedTime: 0,
@@ -73,6 +74,7 @@ class CatLifecycle {
             this.state = {
                 ...this.state, // 保留預設值
                 ...data,      // 覆蓋儲存的值
+                nameChangeCount: data.nameChangeCount || 0, // 新增：載入計數或設為 0
                 unlocked: {
                     stage1: new Set(data.unlocked?.stage1 || []),
                     stage2: new Set(data.unlocked?.stage2 || [])
@@ -110,12 +112,27 @@ class CatLifecycle {
     }
 
     changeCatName() {
+        if (this.state.nameChangeCount >= 2) {
+            this.catNameInput.value = ''; // Clear input even if limit reached
+            if (confirm('名字已達修改次數上限 (2次)！\\n是否要重新養成？')) {
+                this.restartGame();
+            }
+            // If user clicks Cancel, do nothing and continue the game.
+            return;
+        }
+
         const newName = this.catNameInput.value.trim();
         if (newName) {
             this.state.catName = newName;
+            this.state.nameChangeCount++; // Increment count after successful change
             this.updateCatNameUI();
             this.saveState();
             this.catNameInput.value = ''; // 清空輸入框
+
+            // Optional: Alert remaining changes
+            const remainingChanges = 2 - this.state.nameChangeCount;
+            alert(`名字已更改！你還可以更改 ${remainingChanges} 次。`);
+
         } else {
             alert('貓咪名字不能為空！');
         }
