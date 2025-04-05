@@ -239,3 +239,20 @@ button:disabled {
         margin-bottom: 5px; /* Add space below input */
     }
 }
+
+/* Responsive Font Sizes */
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 14px; /* Reduce base font size on small screens */
+  }
+
+  #cat-name-display {
+    font-size: 1.5em; /* Adjust heading size relative to new body font size */
+  }
+
+  button, input {
+      font-size: 14px; /* Ensure form elements also adjust */
+  }
+
+  /* Add other element adjustments here if needed */
+}

@@ -114,7 +114,7 @@ class CatLifecycle {
     changeCatName() {
         if (this.state.nameChangeCount >= 2) {
             this.catNameInput.value = ''; // Clear input even if limit reached
-            if (confirm('名字已達修改次數上限 (2次)！\\n是否要重新養成？')) {
+            if (confirm('名字已達修改次數上限 (2次)！是否要重新養成？')) {
                 this.restartGame();
             }
             // If user clicks Cancel, do nothing and continue the game.
