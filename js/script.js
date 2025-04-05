@@ -3,7 +3,7 @@ class CatLifecycle {
         this.stages = [
             { name: '幼貓', imagePath: 'images/stage0.png', requirements: { feed: 10, play: 5 }, variants: 1 },
             { name: '成長期', imagePath: 'images/stage1_', requirements: { feed: 10, play: 5 }, variants: 5 },
-            { name: '完全體', imagePath: 'images/stage2_', variants: 5 }
+            { name: '我是大貓了', imagePath: 'images/stage2_', variants: 5 }
         ];
 
         this.state = {
@@ -126,6 +126,7 @@ class CatLifecycle {
             this.state.catName = newName;
             this.state.nameChangeCount++; // Increment count after successful change
             this.updateCatNameUI();
+            this.updateUI(); // Updates stage title and other UI elements
             this.saveState();
             this.catNameInput.value = ''; // 清空輸入框
 
@@ -205,36 +206,25 @@ class CatLifecycle {
     }
 
     upgradeStage() {
-        if (this.state.stage >= 2) return;
+        if (this.state.stage < this.stages.length - 1) {
+            const nextStageIndex = this.state.stage + 1;
+            const nextStage = this.stages[nextStageIndex];
 
-        this.state.stage++;
-        this.state.variant = Math.floor(Math.random() *
-            this.stages[this.state.stage].variants) + 1;
+            // Only choose a new variant when evolving from Kitten (stage 0) to Growing (stage 1)
+            if (this.state.stage === 0) {
+                // 隨機選擇一個變體 (1 到 3)
+                const variant = Math.floor(Math.random() * 3) + 1;
+                this.state.variant = variant;
+            }
+            // When evolving from Growing (1) to Full (2), keep the existing variant.
 
-        // 紀錄解鎖型態
-        const stageKey = `stage${this.state.stage}`;
-        if (!this.state.unlocked[stageKey]) {
-            this.state.unlocked[stageKey] = new Set();
+            this.state.stage = nextStageIndex;
+            this.state.feedCount = 0; // 重置進度
+            this.state.playCount = 0;
+
+            console.log(`貓咪升級到 ${nextStage.name} (變體: ${this.state.variant})!`);
+            this.saveState();
         }
-        this.state.unlocked[stageKey].add(this.state.variant);
-
-        this.resetCounters();
-
-        if (this.state.stage === 2) {
-            this.stageTitle.textContent = `🎉 ${this.stages[this.state.stage].name} 達成！ 🎉`;
-            // 這裡可以添加更明顯的完成提示或慶祝動畫
-             // 禁用所有互動按鈕
-            this.feedButton.disabled = true;
-            this.playButton.disabled = true;
-            this.feedButton.textContent = "餵食貓咪";
-            this.playButton.textContent = "陪貓玩耍";
-        } else {
-             this.showVariantAlert();
-+
-+            // 非最終階段，確保重新養成按鈕是隱藏的
-+            this.restartButton.classList.add('hidden');
-        }
-        this.updateUI(); // 更新UI以反映新階段
     }
 
     getImageSrc() {
@@ -263,6 +253,7 @@ class CatLifecycle {
         this.updateStats();
         this.updateRequirements();
         this.updateButtonCooldowns();
+        this.stageTitle.textContent = `🐾 ${this.state.catName} - ${this.stages[this.state.stage].name}`; 
     }
 
     updateCatImage() {
@@ -295,7 +286,7 @@ class CatLifecycle {
 
         // 更新階段標題，除非已達成最終階段
         if (this.state.stage < 2) {
-             this.stageTitle.textContent = `🐾 ${currentStageData.name} 養成中`;
+             // this.stageTitle.textContent = `🐾 ${currentStageData.name} 養成中`;
         }
     }
 

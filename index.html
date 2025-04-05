@@ -12,23 +12,24 @@
         <button id="change-name-button">更改名字</button>
     </div>
 
-    <h1 id="stage-title">🐾 幼貓養成中</h1>
-
-    <div id="cat-container">
-        <img id="cat-image" src="images/stage0.png" alt="貓咪型態">
-    </div>
-
+    <!-- 進度條移到 cat-container 外面，與 name-section 對齊 -->
     <div class="progress-section">
         <div class="requirement-grid">
             <div class="requirement-card">
-                <h3>🥫 餵食進度</h3>
-                <p><span id="feed-count">0</span>/<span id="feed-required">10</span> 次</p>
+                <h3>🥫 餵食</h3>
+                <p><span id="feed-count">0</span>/<span id="feed-required">10</span></p>
             </div>
             <div class="requirement-card">
-                <h3>🎮 遊戲進度</h3>
-                <p><span id="play-count">0</span>/<span id="play-required">5</span> 次</p>
+                <h3>🎮 玩耍</h3>
+                <p><span id="play-count">0</span>/<span id="play-required">5</span></p>
             </div>
         </div>
+    </div>
+
+    <div id="cat-container">
+        <!-- 標題移到這裡，會在JS中更新 -->
+        <h2 id="stage-title">🐾 載入中...</h2>
+        <img id="cat-image" src="images/stage0.png" alt="貓咪型態">
     </div>
 
     <div class="action-buttons">

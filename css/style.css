@@ -8,13 +8,15 @@
 }
 
 body {
-    font-family: 'Microsoft JhengHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 600px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f8ff; /* 淡藍色背景 */
+    max-width: 480px; /* Adjust as needed for phone width */
     margin: 20px auto;
-    padding: 20px;
-    background: var(--background-color);
-    color: var(--text-color);
-    box-sizing: border-box;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    min-height: 98vh;
+    position: relative;
 }
 
 .name-section {
@@ -26,6 +28,14 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+.name-change-section {
+    margin-bottom: 15px; /* Add space below name change */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 #cat-name-display {
     margin: 0 0 10px 0;
     color: var(--primary-color);
@@ -33,28 +43,43 @@ body {
 }
 
 #cat-name-input {
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: 1px solid #ccc;
-    border-radius: 15px;
+    border-radius: 4px;
     margin-right: 5px;
+    flex-grow: 1; /* Allow input to take available space */
+    max-width: 200px; /* Limit input width */
+}
+
+#change-name-button {
+    padding: 6px 12px;
+    font-size: 0.9em;
 }
 
 #stage-title {
-    color: var(--text-color);
+    color: #4682b4; /* 鋼藍色 */
+    margin-top: 0; /* Remove default margin */
+    margin-bottom: 10px;
+    font-size: 1.4em; /* Adjust title size */
     text-align: center;
-    font-size: 1.8em;
-    margin: 20px 0;
 }
 
 #cat-container {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin: 30px 0;
-    position: relative;
+    margin-bottom: 15px; /* Add space below cat container */
+    width: 100%; /* Make it take full width of the body container */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 #cat-image {
-    width: 200px; /* 稍微縮小一點 */
+    max-width: 80%; /* Adjust image size relative to container */
     height: auto;
+    display: block;
+    margin: 15px auto;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
     background: var(--card-background);
@@ -68,11 +93,14 @@ body {
 }
 
 .progress-section {
-    background: var(--card-background);
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    /* Apply similar styling as .name-section */
+    background-color: #ffffff; /* Same background as name-section */
+    padding: 15px; /* Same padding as name-section */
+    border-radius: 10px; /* Same border-radius as name-section */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Keep shadow */
+    margin-bottom: 15px; /* Consistent margin with name-section */
+    width: 100%; /* Ensure it spans width */
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .requirement-grid {
@@ -82,22 +110,37 @@ body {
     margin-top: 15px;
 }
 
-.requirement-card {
-    padding: 15px;
+.requirement-card { /* Cards INSIDE the progress section */
+    padding: 5px 8px; /* Reduce padding significantly */
     border-radius: 8px;
-    background: var(--secondary-color);
-    color: white;
+    background-color: #ffffff; /* Match cat-container background */
     text-align: center;
+    /* Remove flex: 1 to allow justify-content on parent to center them */
+    min-width: 90px; /* Give them a minimum size */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid green; /* --- DEBUG BORDER --- */
 }
 
-.requirement-card h3 {
+.requirement-card h3 { /* Text INSIDE the cards */
     margin-top: 0;
-    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: #1e90ff; /* 道奇藍 */
+    font-size: 0.75em; /* Make progress titles even smaller */
+}
+
+.requirement-card p { /* Text INSIDE the cards */
+    margin: 0;
+    color: #555;
+    font-size: 0.7em; /* Make progress text even smaller */
 }
 
 .action-buttons {
     text-align: center;
-    margin-top: 25px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Reduce gap between buttons */
+    width: 100%; /* Ensure buttons container takes full width */
 }
 
 button {
@@ -147,48 +190,52 @@ button:disabled {
     to { transform: translateX(0); opacity: 1; }
 }
 
-/* 新增：隱藏元素的通用 class */
-.hidden {
-    display: none;
-}
-
-/* 新增：重新開始按鈕區塊樣式 */
 .restart-section {
-    text-align: center;
     margin-top: 20px;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center button horizontally */
 }
 
-/* 新增：重新開始按鈕特定樣式 */
-#restart-button {
-    background-color: #f0ad4e; /* 橘黃色，表示重置 */
-    border-color: #eea236;
-}
-
-#restart-button:hover {
-    background-color: #ec971f;
-    border-color: #d58512;
-}
-
-/* 響應式設計 */
+/* 媒體查詢：螢幕寬度小於 640px 時的樣式 */
 @media (max-width: 640px) {
     body {
-        max-width: 95%;
+        padding: 10px;
         margin: 10px auto;
-        padding: 15px;
     }
-    #cat-image {
-        width: 150px;
+    #cat-container {
+        padding: 10px;
     }
     .requirement-grid {
         grid-template-columns: 1fr;
     }
+    .requirement-card {
+        padding: 8px 5px; /* Reduce padding inside cards */
+    }
     button {
-        padding: 12px 25px;
-        width: 80%;
-        margin: 10px auto;
-        display: block;
+        padding: 10px 8px; /* Adjust button padding */
+        font-size: 0.85em; /* Adjust button font size */
+        flex: 1; /* Make buttons take equal width */
+    }
+    .action-buttons {
+        flex-direction: row; /* Keep buttons side-by-side */
+    }
+    .requirement-card h3 {
+        font-size: 0.8em;
+    }
+    .requirement-card p {
+        font-size: 0.8em;
+    }
+    #stage-title {
+        font-size: 1.2em;
+    }
+    .name-change-section {
+        flex-direction: column; /* Stack input and button */
+        align-items: stretch; /* Make them full width */
+        gap: 8px;
     }
     #cat-name-input {
-        width: calc(80% - 90px); /* 調整輸入框寬度 */
+        max-width: none; /* Remove max width */
+        margin-right: 0;
+        margin-bottom: 5px; /* Add space below input */
     }
 }
