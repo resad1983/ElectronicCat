@@ -1,7 +1,7 @@
 class CatLifecycle {
     constructor() {
         this.stages = [
-            { name: '幼貓', imagePath: 'images/stage0.png', requirements: { feed: 10, play: 5 }, variants: 1 },
+            { name: '幼貓', imagePath: 'images/stage0.gif', requirements: { feed: 10, play: 5 }, variants: 1 },
             { name: '成長期', imagePath: 'images/stage1_', requirements: { feed: 10, play: 5 }, variants: 5 },
             { name: '我是大貓了', imagePath: 'images/stage2_', variants: 5 }
         ];
@@ -46,13 +46,13 @@ class CatLifecycle {
     preloadImages() {
         [1, 2].forEach(stage => {
             for (let v = 1; v <= 5; v++) {
-                new Image().src = `images/stage${stage}_${v}.png`;
+                new Image().src = `images/stage${stage}_${v}.gif`;
             }
         });
-        new Image().src = 'images/default_cat.png';
+        new Image().src = 'images/default_cat.gif';
         // Preload interaction images
-        new Image().src = 'images/feeding.png';
-        new Image().src = 'images/playing.png';
+        new Image().src = 'images/feeding.gif';
+        new Image().src = 'images/playing.gif';
     }
 
     saveState() {
@@ -103,7 +103,7 @@ class CatLifecycle {
 
         // 圖片錯誤處理
         this.catImage.onerror = () => {
-            this.catImage.src = 'images/default_cat.png';
+            this.catImage.src = 'images/default_cat.gif';
             console.error('Error loading cat image, using default.');
         };
 
@@ -155,12 +155,12 @@ class CatLifecycle {
             this.state.feedCount++;
             const originalSrc = this.getImageSrc(); // Store original image
             console.log(`[DEBUG] Interact: ${type}, Original src: ${originalSrc}`); // ADDED LOG
-            this.catImage.src = 'images/feeding.png'; // Change to feeding image
+            this.catImage.src = 'images/feeding.gif'; // Change to feeding image
             console.log(`[DEBUG] Interact: Changed src to ${this.catImage.src}`); // ADDED LOG
             setTimeout(() => {
                 console.log(`[DEBUG] Timeout Feed: Current src: ${this.catImage.src}`); // UPDATED LOG
                 // Only revert if the image is still the feeding image
-                if (this.catImage.src.endsWith('feeding.png')) {
+                if (this.catImage.src.endsWith('feeding.gif')) {
                     this.updateUI(); // Call full updateUI to revert image and sync UI
                     console.log(`[DEBUG] Timeout Feed: Reverted src via updateUI to ${this.catImage.src}`); // ADDED LOG
                 }
@@ -175,12 +175,12 @@ class CatLifecycle {
             this.state.playCount++;
             const originalSrc = this.getImageSrc(); // Store original image
             console.log(`[DEBUG] Interact: ${type}, Original src: ${originalSrc}`); // ADDED LOG
-            this.catImage.src = 'images/playing.png'; // Change to playing image
+            this.catImage.src = 'images/playing.gif'; // Change to playing image
             console.log(`[DEBUG] Interact: Changed src to ${this.catImage.src}`); // ADDED LOG
             setTimeout(() => {
                 console.log(`[DEBUG] Timeout Play: Current src: ${this.catImage.src}`); // UPDATED LOG
                 // Only revert if the image is still the playing image
-                if (this.catImage.src.endsWith('playing.png')) {
+                if (this.catImage.src.endsWith('playing.gif')) {
                     this.updateUI(); // Call full updateUI to revert image and sync UI
                     console.log(`[DEBUG] Timeout Play: Reverted src via updateUI to ${this.catImage.src}`); // ADDED LOG
                 }
@@ -229,9 +229,9 @@ class CatLifecycle {
 
     getImageSrc() {
         const stage = this.stages[this.state.stage];
-        if (!stage) return 'images/default_cat.png'; // 防錯
+        if (!stage) return 'images/default_cat.gif'; // 防錯
         return stage.variants > 1 ?
-            `${stage.imagePath}${this.state.variant}.png` :
+            `${stage.imagePath}${this.state.variant}.gif` :
             stage.imagePath;
     }
 
